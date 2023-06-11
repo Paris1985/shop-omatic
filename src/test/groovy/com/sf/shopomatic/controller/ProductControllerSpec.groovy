@@ -1,5 +1,6 @@
 package com.sf.shopomatic.controller
 
+import org.springframework.ui.Model
 import spock.lang.Specification
 
 class ProductControllerSpec extends Specification{
@@ -8,11 +9,11 @@ class ProductControllerSpec extends Specification{
 
      def "should return product list"() {
          given:
-            List<String> expectedProducts = Arrays.asList("Soccer Ball", "Stadium", "Thinking Cap", "Coffee Cup");
+            Model model = Mock()
          when:
-            def products = productController.getProducts()
+            def products = productController.getProducts(model)
          then:
-            Arrays.toString(products) == Arrays.toString(expectedProducts)
+            products == "home"
 
      }
 }
