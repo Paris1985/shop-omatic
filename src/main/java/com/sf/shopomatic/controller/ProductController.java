@@ -13,6 +13,6 @@ public class ProductController {
 
     @GetMapping
     public List<String> getProducts() {
-        return Arrays.asList("Soccer Ball", "Stadium", "Thinking Cap");
+        return Arrays.asList("Soccer Ball", "Stadium", "Thinking Cap", "Coffee Cup");
     }
 }
