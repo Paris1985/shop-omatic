@@ -8,7 +8,7 @@ class ProductControllerSpec extends Specification{
 
      def "should return product list"() {
          given:
-            List<String> expectedProducts = Arrays.asList("Soccer Ball", "Stadium", "Thinking Cap")
+            List<String> expectedProducts = Arrays.asList("Soccer Ball", "Stadium", "Thinking Cap", "Coffee Cup");
          when:
             def products = productController.getProducts()
          then:
