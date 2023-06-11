@@ -43,7 +43,7 @@ pipeline {
           steps {
 
           echo "Deployed to DEV Approval"
-          slackSend channel: 'exciting-shop-omatic-experience', message: 'Dev deployment is needing your approval - http://localhost:9999/job/shop-omatic/', teamDomain: 'shop-omatic', tokenCredentialId: 'slack'
+          slackSend channel: 'exciting-shop-omatic-experience', message: 'Dev deployment is needing your approval - http://localhost:9999/job/shop-omatic/', teamDomain: 'shop-omatic', tokenCredentialId: 'slacksecret'
 
 
           echo "Taking approval from DEV Manager for QA Deployment"
