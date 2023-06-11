@@ -1,18 +1,18 @@
 package com.sf.shopomatic.controller;
 
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
 import java.util.Arrays;
-import java.util.List;
 
-@RestController
+@Controller
 @RequestMapping("/products")
 public class ProductController {
 
     @GetMapping
-    public List<String> getProducts() {
-        return Arrays.asList("Soccer Ball", "Stadium", "Thinking Cap", "Coffee Cup");
+    public String getProducts(Model model) {
+        model.addAttribute("products", Arrays.asList("Soccer Ball", "Stadium", "Thinking Cap", "Coffee Cup"));
+        return "home";
     }
 }
