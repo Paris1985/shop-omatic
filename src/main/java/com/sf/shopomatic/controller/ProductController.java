@@ -15,7 +15,4 @@ public class ProductController {
     public List<String> getProducts() {
         return Arrays.asList("Soccer Ball", "Stadium", "Thinking Cap");
     }
-    private List<String> findProducts(int categoryId) {
-        return Arrays.asList("Soccer Ball", "Stadium", "Thinking Cap");
-    }
 }
