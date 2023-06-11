@@ -41,6 +41,16 @@ pipeline {
 
         stage ('DEV Approve') {
           steps {
+
+          mail bcc: '', body: '''Hi
+
+          A new deployment is pending for your approval, please click and the link and provide approval.
+          http://localhost:9999/job/shop-omatic/
+
+          Regards,
+          DevOps Team
+          ''', cc: '', from: '', replyTo: '', subject: 'Dev Approval', to: 'bobby.e.paris@gmail.com'
+
           echo "Taking approval from DEV Manager for QA Deployment"
             timeout(time: 7, unit: 'DAYS') {
             input message: 'Do you want to deploy?', submitter: 'admin'
