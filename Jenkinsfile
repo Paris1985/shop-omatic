@@ -42,8 +42,8 @@ pipeline {
         stage ('DEV Approve') {
           steps {
 
-          echo "deployed to DEV Env successfully"
-          slackSend(channel:'exciting-shop-omatic-experience', message: "Dev deployment is needing your approval - http://localhost:9999/job/shop-omatic/")
+          echo "Deployed to DEV Approval"
+          slackSend channel: 'exciting-shop-omatic-experience', message: 'Dev deployment is needing your approval - http://localhost:9999/job/shop-omatic/', teamDomain: 'shop-omatic', tokenCredentialId: 'slack'
 
 
           echo "Taking approval from DEV Manager for QA Deployment"
