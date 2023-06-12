@@ -15,6 +15,11 @@ pipeline {
             steps {
                 sh 'mvn clean install'
             }
+            post {
+                always {
+                  publishCoverage adapters: [jacocoAdapter('target/site/jacoco/jacoco.xml')]
+                }
+            }
         }
 
         stage ('SonarQube Analysis') {
@@ -58,6 +63,5 @@ pipeline {
                 deploy adapters: [tomcat9(credentialsId: 'bob', path: '', url: 'http://localhost:9191')], contextPath: null, war: '**/*.war'
             }
         }
-
     }
 }
