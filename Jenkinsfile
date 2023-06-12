@@ -63,5 +63,11 @@ pipeline {
                 deploy adapters: [tomcat9(credentialsId: 'bob', path: '', url: 'http://localhost:9191')], contextPath: null, war: '**/*.war'
             }
         }
+
+        post {
+            failure {
+                slackSend channel: 'exciting-shop-omatic-experience', message: 'Shop-omatic pipeline build failed', teamDomain: 'shop-omatic', tokenCredentialId: 'slacksecret'
+            }
+        }
     }
 }
