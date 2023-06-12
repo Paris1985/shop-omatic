@@ -18,7 +18,7 @@ pipeline {
             post {
                 failure {
                   publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'target/site/jacoco', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: 'Shop-matic Code Coverage', useWrapperFileDirectly: true])
-                  slackSend channel: 'dev', message: 'Build Failure', teamDomain: 'shop-omatic', tokenCredentialId: 'slacksecret'
+                  slackSend channel: 'develop', message: 'Build Failure', teamDomain: 'shop-omatic', tokenCredentialId: 'slacksecret'
                 }
             }
         }
@@ -49,7 +49,7 @@ pipeline {
           steps {
 
           echo "Deployed to DEV Approval"
-          slackSend channel: 'dev', message: 'Dev deployment is needing your approval - http://localhost:9999/job/shop-omatic/', teamDomain: 'shop-omatic', tokenCredentialId: 'slacksecret'
+          slackSend channel: 'develop', message: 'Dev deployment is needing your approval - http://localhost:9999/job/shop-omatic/', teamDomain: 'shop-omatic', tokenCredentialId: 'slacksecret'
 
           echo "Taking approval from DEV Manager for QA Deployment"
             timeout(time: 7, unit: 'DAYS') {
@@ -64,7 +64,7 @@ pipeline {
             }
             post {
                failure {
-                 slackSend channel: 'dev', message: 'Attention, DEV Deployment was unsuccessful!', teamDomain: 'shop-omatic', tokenCredentialId: 'slacksecret'
+                 slackSend channel: 'develop', message: 'Attention, DEV Deployment was unsuccessful!', teamDomain: 'shop-omatic', tokenCredentialId: 'slacksecret'
                }
             }
         }
