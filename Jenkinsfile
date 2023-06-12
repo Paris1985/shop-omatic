@@ -17,7 +17,7 @@ pipeline {
             }
             post {
                 always {
-                  publishCoverage adapters: [jacocoAdapter('target/site/jacoco/jacoco.xml')]
+                  publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: 'target/site/jacoco', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: 'Shop-matic Code Coverage', useWrapperFileDirectly: true])
                 }
             }
         }
