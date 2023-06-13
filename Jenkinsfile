@@ -26,16 +26,11 @@ pipeline {
         stage ('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                    sh 'mvn sonar:sonar -Dsonar.projectKey=shop-omatic -Dsonar.projectName=shop-omatic -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_63badec207ec5ebe2167523ce3a66d1a870ba474'
+                  sh 'mvn sonar:sonar -Dsonar.projectKey=shop-omatic -Dsonar.projectName=shop-omatic -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_63badec207ec5ebe2167523ce3a66d1a870ba474'
                 }
-            }
-        }
-
-        stage("Quality Gate") {
-            steps {
                 timeout(time: 1, unit: 'HOURS') {
-                    waitForQualityGate abortPipeline: true
-                }
+                  waitForQualityGate abortPipeline: true
+                } 
             }
         }
 
@@ -60,21 +55,21 @@ pipeline {
 
         stage("DEV Deployment") {
             steps {
-                deploy adapters: [tomcat9(credentialsId: 'bob', path: '', url: 'http://localhost:9191')], contextPath: null, war: '**/*.war'
+               deploy adapters: [tomcat9(credentialsId: 'admin', path: '', url: 'http://localhost:9191')], contextPath: 'shop-omatic', war: '**/*.war'
             }
             post {
-               failure {
+              failure {
                  slackSend channel: 'develop', message: 'Attention, DEV Deployment was unsuccessful!', teamDomain: 'shop-omatic', tokenCredentialId: 'slacksecret'
-               }
+              }
             }
         }
     }
     post {
-       success {
+      success {
          slackSend channel: 'general', message: 'Congratulations, new build was successfully deployed!', teamDomain: 'shop-omatic', tokenCredentialId: 'slacksecret'
-       }
-       failure {
+      }
+      failure {
          slackSend channel: 'general', message: 'Attention, Shop-omatic deployment was unsuccessful!', teamDomain: 'shop-omatic', tokenCredentialId: 'slacksecret'
-       }
+      }
     }
 }
