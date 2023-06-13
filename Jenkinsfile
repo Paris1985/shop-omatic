@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage ('Checkout') {
             steps {
-                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Paris1985/shop-omatic']])
+                checkout scmGit(branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Paris1985/shop-omatic']])
             }
         }
 
@@ -55,7 +55,7 @@ pipeline {
 
         stage("DEV Deployment") {
             steps {
-               deploy adapters: [tomcat9(credentialsId: 'admin', path: '', url: 'http://localhost:9191')], contextPath: 'shop-omatic', war: '**/*.war'
+               deploy adapters: [tomcat9(credentialsId: 'admin', path: '', url: 'http://localhost:9292')], contextPath: 'shop-omatic', war: '**/*.war'
             }
             post {
               failure {
