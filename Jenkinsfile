@@ -7,7 +7,7 @@ pipeline {
     stages {
         stage ('Checkout') {
             steps {
-                checkout scmGit(branches: [[name: '*/master']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Paris1985/shop-omatic']])
+                checkout scmGit(branches: [[name: '*/develop']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/Paris1985/shop-omatic']])
             }
         }
 
@@ -40,26 +40,26 @@ pipeline {
             }
         }
 
-        stage ('DEV Approve') {
+        stage ('QA Approve') {
           steps {
 
-          echo "Deployed to DEV Approval"
+          echo "Deployed to QA Approval"
           slackSend channel: 'develop', message: 'Dev deployment is needing your approval - http://localhost:9999/job/shop-omatic/', teamDomain: 'shop-omatic', tokenCredentialId: 'slack_token'
 
-          echo "Taking approval from DEV Manager for QA Deployment"
+          echo "Taking approval from QA Manager for QA Deployment"
             timeout(time: 7, unit: 'DAYS') {
             input message: 'Do you want to deploy?', submitter: 'admin'
             }
           }
         }
 
-        stage("DEV Deployment") {
+        stage("QA Deployment") {
             steps {
                deploy adapters: [tomcat9(credentialsId: 'admin', path: '', url: 'http://localhost:9191')], contextPath: 'shop-omatic', war: '**/*.war'
             }
             post {
               failure {
-                 slackSend channel: 'develop', message: 'Attention, DEV Deployment was unsuccessful!', teamDomain: 'shop-omatic', tokenCredentialId: 'slack_token'
+                 slackSend channel: 'develop', message: 'Attention, QA Deployment was unsuccessful!', teamDomain: 'shop-omatic', tokenCredentialId: 'slack_token'
               }
             }
         }
