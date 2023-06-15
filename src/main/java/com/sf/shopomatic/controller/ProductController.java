@@ -14,9 +14,7 @@ public class ProductController {
     private ProductService productService;
     @GetMapping
     public String getProducts(Model model) {
-        String category;
-
-        List<String> products = productService.getProducts();
+         List<String> products = productService.getProducts();
         model.addAttribute("products", products);
         return "home";
     }

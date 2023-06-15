@@ -130,7 +130,6 @@
 						<exclude>**/conf/WebConfig*</exclude>
 						<exclude>**/service/ProductService*</exclude>
 						<exclude>**/controller/ProductRestController*</exclude>
-						<exclude>**/controller/CategoryController*</exclude>
 					</excludes>
 				</configuration>
 			</plugin>
