@@ -27,7 +27,7 @@ pipeline {
         stage ('SonarQube Analysis') {
             steps {
                 withSonarQubeEnv('SonarQube') {
-                  sh 'mvn sonar:sonar -Dsonar.projectKey=shop-omatic -Dsonar.projectName=shop-omatic -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_63badec207ec5ebe2167523ce3a66d1a870ba474'
+                  sh 'mvn sonar:sonar -Dsonar.projectKey=shop-omatic-dev -Dsonar.projectName=shop-omatic-dev -Dsonar.host.url=http://localhost:9000 -Dsonar.token=sqp_39d3b3b29a3ae60610687d7b6e0f2d2ad1287567'
                 }
                 timeout(time: 1, unit: 'HOURS') {
                   waitForQualityGate abortPipeline: true
