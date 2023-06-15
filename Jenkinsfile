@@ -40,11 +40,11 @@ pipeline {
             }
         }
 
-        stage ('DEV Approve') {
+        stage ('PROD Approve') {
           steps {
 
           echo "Deployed to DEV Approval"
-          slackSend channel: 'develop', message: 'Dev deployment is needing your approval - http://localhost:9999/job/shop-omatic/', teamDomain: 'shop-omatic', tokenCredentialId: 'slack_token'
+          //slackSend channel: 'develop', message: 'Dev deployment is needing your approval - http://localhost:9999/job/shop-omatic/', teamDomain: 'shop-omatic', tokenCredentialId: 'slack_token'
 
           echo "Taking approval from DEV Manager for QA Deployment"
             timeout(time: 7, unit: 'DAYS') {
@@ -53,23 +53,26 @@ pipeline {
           }
         }
 
-        stage("DEV Deployment") {
+        stage("PROD Deployment") {
             steps {
                deploy adapters: [tomcat9(credentialsId: 'admin', path: '', url: 'http://localhost:9191')], contextPath: 'shop-omatic', war: '**/*.war'
             }
             post {
               failure {
-                 slackSend channel: 'develop', message: 'Attention, DEV Deployment was unsuccessful!', teamDomain: 'shop-omatic', tokenCredentialId: 'slack_token'
+                 //slackSend channel: 'develop', message: 'Attention, DEV Deployment was unsuccessful!', teamDomain: 'shop-omatic', tokenCredentialId: 'slack_token'
+                 echo 'Attention, PROD Deployment was unsuccessful!'
               }
             }
         }
     }
     post {
       success {
-         slackSend channel: 'general', message: 'Congratulations, new build was successfully deployed!', teamDomain: 'shop-omatic', tokenCredentialId: 'slack_token'
+           //slackSend channel: 'general', message: 'Congratulations, new build was successfully deployed!', teamDomain: 'shop-omatic', tokenCredentialId: 'slack_token'
+          echo 'Congratulations, new build was successfully deployed!'
       }
       failure {
-         slackSend channel: 'general', message: 'Attention, Shop-omatic deployment was unsuccessful!', teamDomain: 'shop-omatic', tokenCredentialId: 'slack_token'
+          //slackSend channel: 'general', message: 'Attention, Shop-omatic deployment was unsuccessful!', teamDomain: 'shop-omatic', tokenCredentialId: 'slack_token'
+          echo 'Attention, PROD Deployment was unsuccessful!'
       }
     }
 }
